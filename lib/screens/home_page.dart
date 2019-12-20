@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:mobilsharelocation/locator.dart';
 import 'package:mobilsharelocation/models/location.dart';
 import 'package:mobilsharelocation/screens/google_map.dart';
 import 'package:mobilsharelocation/utilities/constant.dart';
 import 'package:mobilsharelocation/viewmodels/location_viewmodel.dart';
 import 'package:mobilsharelocation/widgets/button_widget.dart';
+import 'package:mobilsharelocation/widgets/column.dart';
 import 'package:mobilsharelocation/widgets/platform_alert_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -40,14 +42,41 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("YOUR LOCATION"),
+        title: Text(
+          "YOUR LOCATION",
+          style: kHomeTitleTextStyle,
+        ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
       body: _locationUserViewModel.state == ViewState.Idle
-          ? Container(
-              child: Center(
-                child: buildColumn(),
-              ),
+          ? Stack(
+              children: <Widget>[
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.50,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/bg.png"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ClipPath(
+                    clipper: OvalTopBorderClipper(),
+                    child: Container(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height * 0.35,
+                      decoration: BoxDecoration(color: Colors.white),
+                      child:CustomColumn(
+                        text: Text("Location Service",style: TextStyle(fontSize: 30.0),),
+                        icon: Icon(Icons.location_on,size: 50,),
+                        button: buildCustomButton(),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             )
           : Center(
               child: CircularProgressIndicator(),
@@ -55,28 +84,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Column buildColumn() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        // Image.asset("assets/images/90514805-location-icon-map-pin-mark-gps-destination-symbol-removebg-preview.png"),
-        Icon(
-          Icons.location_on,
-          size: 350,
-          color: kLocationIconColor,
-        ),
-        CustomButton(
-            buttonText: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text("FIND LOCATION", style: kCustomButtonTextStyle),
-                Icon(Icons.navigate_next)
-              ],
-            ),
-            onPressed: () => _getLocation(),
-            buttonColor: Colors.blueGrey),
-      ],
-    );
+  CustomButton buildCustomButton() {
+    return CustomButton(
+        buttonText: Text("FIND LOCATION", style: kCustomButtonTextStyle),
+        onPressed: () => _getLocation(),
+        buttonColor: Color(0xFFFF7A53));
   }
+
+
 }

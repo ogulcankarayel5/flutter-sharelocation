@@ -31,6 +31,7 @@ dependencies:
   share: ^0.6.3+5
   geocoder: ^0.2.1
   splashscreen: ^1.2.0
+  flutter_custom_clippers: ^1.1.0
   
 dev_dependencies:
   flutter_test:

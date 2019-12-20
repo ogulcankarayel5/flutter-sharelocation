@@ -13,11 +13,8 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     final height=MediaQuery.of(context).size.height;
     return SplashScreen(
-      loadingText: Text(
-        "Preparing",
-        style: kLoadingTextStyle,
-      ),
-      seconds: 5,
+     
+      seconds: 2,
       navigateAfterSeconds: HomePage(),
       title: Text(
         'Share Your Location',
@@ -26,10 +23,10 @@ class _SplashState extends State<Splash> {
       image: Image.asset(
           "assets/images/location-clipart-location-pointer-5-removebg-preview.png"),
       backgroundColor: Colors.white,
-      styleTextUnderTheLoader: new TextStyle(),
-      photoSize: height * 0.25,
+    
+      photoSize: height * 0.10,
       onClick: () => print("Flutter Egypt"),
-      loaderColor: kLoaderColor,
+     
     );
     
   }

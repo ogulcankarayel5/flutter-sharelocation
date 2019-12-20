@@ -15,7 +15,7 @@ class GoogleMapWidget extends StatefulWidget {
 class _GoogleMapWidgetState extends State<GoogleMapWidget> {
   Completer<GoogleMapController> _controller = Completer();
 
-//TODO:ADD MARKER
+
   @override
   Widget build(BuildContext context) {
     final _locationViewModel = Provider.of<LocationViewModel>(context);
@@ -40,37 +40,34 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
               child: CircularProgressIndicator(),
             ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () =>_shareLocation(_locationViewModel.location.latitude,_locationViewModel.location.longitude),
-        label: Text('To the lake!'),
-        icon: Icon(Icons.directions_boat),
+        onPressed: () => _shareLocation(_locationViewModel.location.latitude,
+            _locationViewModel.location.longitude),
+        label: Text('Share'),
+        icon: Icon(Icons.send),
       ),
     );
   }
 
-  // Future<void> _goToTheLake() async {
-  //   final _locationViewModel = Provider.of<LocationViewModel>(context);
-  //   try {
-  //     final GoogleMapController controller = await _controller.future;
-  //     await controller.animateCamera(CameraUpdate.newCameraPosition(
-  //       CameraPosition(
-  //         target: LatLng(_locationViewModel.location.latitude,
-  //             _locationViewModel.location.longitude),
-  //         zoom: 14.4746,
-  //       ),
-  //     ));
-  //   } catch (e) {
-  //     PlatformAlertWidget(
-  //       title: "Başarısız",
-  //       content: e.toString(),
-  //       mainButtonText: "Tamam",
-  //     ).show(context);
-  //   }
-  // }
+  
 
-  _shareLocation(double latitude,double longitude) async{
-     final _locationViewModel = Provider.of<LocationViewModel>(context);
-     
+  _shareLocation(double latitude, double longitude) async {
+    final _locationViewModel = Provider.of<LocationViewModel>(context);
+
+   try{
       await _locationViewModel.shareLocation(latitude, longitude);
+      _showAlert(title: "Başarılı",content: "Lokasyonunuz başarıyla gönderildi");
+   }
+   catch(e){
+     _showAlert(title: "Başarısız",content: e.toString());
+   }
+    
+  }
 
+  void _showAlert({String title,String content}) {
+    PlatformAlertWidget(
+      content: content,
+      title: title,
+      mainButtonText: "Tamam",
+    ).show(context);
   }
 }

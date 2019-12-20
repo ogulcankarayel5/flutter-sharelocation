@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomButton extends StatelessWidget   {
   final Widget buttonText;
   final Color buttonColor;
  
