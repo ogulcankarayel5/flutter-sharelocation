@@ -47,7 +47,7 @@ class LocationViewModel with ChangeNotifier implements LocationBase {
 
   Future<void> shareLocation(double latitude,double longitude){
     
-     Share.share(('https://www.google.com/maps/search/?api=1&query=$latitude,$longitude'),subject: 'My location');
+     Share.share(('Here is my location. https://www.google.com/maps/search/?api=1&query=$latitude,$longitude'),subject: 'My location');
   }
   @override
   Future<Location> getLocation() async {

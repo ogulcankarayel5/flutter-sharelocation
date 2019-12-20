@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     try {
       _location = await _locationUserViewModel.getLocation();
       print(_location.latitude.toString());
-      
+
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => GoogleMapWidget()));
     } catch (e) {
@@ -33,8 +33,6 @@ class _HomePageState extends State<HomePage> {
       print(e.toString());
     }
   }
-  
-  
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +43,12 @@ class _HomePageState extends State<HomePage> {
         title: Text("YOUR LOCATION"),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
-      body: _locationUserViewModel.state == ViewState.Idle ?
-           Container(child: Center(child: buildColumn()))
+      body: _locationUserViewModel.state == ViewState.Idle
+          ? Container(
+              child: Center(
+                child: buildColumn(),
+              ),
+            )
           : Center(
               child: CircularProgressIndicator(),
             ),

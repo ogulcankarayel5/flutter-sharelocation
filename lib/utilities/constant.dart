@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 
 const kLocationIconColor = Colors.white70;
+const kLoaderColor=Colors.red;
+// splash screen
+
+const kLoadingTextStyle = TextStyle(
+  fontFamily: 'IndieFlower',
+);
+
+const kTitleTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 20.0,
+);
 
 const kSplashTitleStyle = TextStyle(
   fontSize: 25.0,
@@ -16,8 +27,7 @@ const kPlatformAlerWidgetTextStyle = TextStyle(
   color: Colors.red,
 );
 
-const kPlatformAlerWidgetTitleStyle=TextStyle(
+const kPlatformAlerWidgetTitleStyle = TextStyle(
   fontFamily: 'InriaSerif',
   fontSize: 18.0,
-
 );

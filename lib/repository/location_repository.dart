@@ -1,5 +1,6 @@
 
 import 'package:mobilsharelocation/locator.dart';
+import 'package:mobilsharelocation/models/adress.dart';
 import 'package:mobilsharelocation/models/location.dart';
 import 'package:mobilsharelocation/services/location_base.dart';
 import 'package:mobilsharelocation/services/location_service.dart';
@@ -24,10 +25,11 @@ class LocationRepository implements LocationBase{
     }
   }
 
-  getAdress(double latitude, double longitude) async{
+  Future<ExactAddress> getAdress(double latitude, double longitude) async{
    
      if(_appMode==AppMode.RELEASE){
-       return await _locationService.getAdress(latitude,longitude);
+       ExactAddress _exactAddress= await _locationService.getAdress(latitude,longitude);
+       return _exactAddress;
      
     
     }
