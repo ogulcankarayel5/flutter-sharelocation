@@ -47,25 +47,25 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
     );
   }
 
-  Future<void> _goToTheLake() async {
-    final _locationViewModel = Provider.of<LocationViewModel>(context);
-    try {
-      final GoogleMapController controller = await _controller.future;
-      await controller.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(
-          target: LatLng(_locationViewModel.location.latitude,
-              _locationViewModel.location.longitude),
-          zoom: 14.4746,
-        ),
-      ));
-    } catch (e) {
-      PlatformAlertWidget(
-        title: "Başarısız",
-        content: e.toString(),
-        mainButtonText: "Tamam",
-      ).show(context);
-    }
-  }
+  // Future<void> _goToTheLake() async {
+  //   final _locationViewModel = Provider.of<LocationViewModel>(context);
+  //   try {
+  //     final GoogleMapController controller = await _controller.future;
+  //     await controller.animateCamera(CameraUpdate.newCameraPosition(
+  //       CameraPosition(
+  //         target: LatLng(_locationViewModel.location.latitude,
+  //             _locationViewModel.location.longitude),
+  //         zoom: 14.4746,
+  //       ),
+  //     ));
+  //   } catch (e) {
+  //     PlatformAlertWidget(
+  //       title: "Başarısız",
+  //       content: e.toString(),
+  //       mainButtonText: "Tamam",
+  //     ).show(context);
+  //   }
+  // }
 
   _shareLocation(double latitude,double longitude) async{
      final _locationViewModel = Provider.of<LocationViewModel>(context);

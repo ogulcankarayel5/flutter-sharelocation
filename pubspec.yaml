@@ -29,7 +29,7 @@ dependencies:
   get_it: ^3.0.3
   google_maps_flutter: ^0.5.21+15
   share: ^0.6.3+5
-
+  geocoder: ^0.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

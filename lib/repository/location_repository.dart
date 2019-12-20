@@ -15,11 +15,27 @@ class LocationRepository implements LocationBase{
   @override
   Future<Location> getLocation() async{
     if(_appMode==AppMode.RELEASE){
-      return await _locationService.getLocation();
+     Location _location= await _locationService.getLocation();
+      
+     return _location;
     }
     else{
       return null;
     }
   }
+
+  getAdress(double latitude, double longitude) async{
+   
+     if(_appMode==AppMode.RELEASE){
+       return await _locationService.getAdress(latitude,longitude);
+     
+    
+    }
+    else{
+      return null;
+    }
+  }
+
+ 
 
 }
