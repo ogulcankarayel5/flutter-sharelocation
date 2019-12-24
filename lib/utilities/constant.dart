@@ -8,16 +8,21 @@ const kLocationIconColor = Colors.white70;
 const kTitleTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 20.0,
+  fontFamily: 'Montserrat'
 );
 
 const kSplashTitleStyle = TextStyle(
   fontSize: 25.0,
 );
 
+const kHomeTextStyle=TextStyle(fontSize: 30.0,fontFamily: 'Montserrat',color: Colors.black);
+const kHomeContentTextStyle=TextStyle(color: Color(0xFFB7BAC3),fontWeight: FontWeight.bold,fontSize: 15,fontFamily: 'OpenSans');
 const kHomeTitleTextStyle=TextStyle(fontFamily: 'IndieFlower');
 const kCustomButtonTextStyle = TextStyle(
   color: Colors.white,
   fontSize: 16,
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.bold
 );
 
 const kPlatformAlerWidgetTextStyle = TextStyle(

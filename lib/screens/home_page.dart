@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+//import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:mobilsharelocation/locator.dart';
 import 'package:mobilsharelocation/models/location.dart';
 import 'package:mobilsharelocation/screens/google_map.dart';
@@ -11,21 +11,19 @@ import 'package:mobilsharelocation/widgets/platform_alert_widget.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
+
+  static final String id="home_screen";
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  Location _location = locator<Location>();
-
   _getLocation() async {
     final _locationUserViewModel = Provider.of<LocationViewModel>(context);
     try {
-      _location = await _locationUserViewModel.getLocation();
-      print(_location.latitude.toString());
+      await _locationUserViewModel.getLocation();
+      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>GoogleMapWidget()));
 
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => GoogleMapWidget()));
     } catch (e) {
       PlatformAlertWidget(
         title: "Hata",
@@ -38,39 +36,120 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final _locationUserViewModel = Provider.of<LocationViewModel>(context);
+   
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "YOUR LOCATION",
-          style: kHomeTitleTextStyle,
-        ),
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      ),
-      body: _locationUserViewModel.state == ViewState.Idle
-          ? Stack(
+      body:Consumer<LocationViewModel>(
+        builder: (context,viewmodel,child){
+          
+          if(viewmodel.state==ViewState.Idle && viewmodel.location==null){
+            return child;
+          }
+          else{
+            return Center(child: CircularProgressIndicator(),);
+          }
+        },
+        child: Stack(
+              overflow: Overflow.visible,
               children: <Widget>[
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.50,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/bg.png"),
-                      fit: BoxFit.cover,
+                  height: width,
+                  width: width,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Center(
+                      child: Image(
+                          image: AssetImage(
+                            "assets/images/bg.png",
+                          ),
+                          fit: BoxFit.cover),
                     ),
                   ),
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: ClipPath(
-                    clipper: OvalTopBorderClipper(),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50.0),
+                        topRight: Radius.circular(50.0)),
                     child: Container(
                       width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.35,
+                      height: height * 0.40,
                       decoration: BoxDecoration(color: Colors.white),
-                      child:CustomColumn(
-                        text: Text("Location Service",style: TextStyle(fontSize: 30.0),),
-                        icon: Icon(Icons.location_on,size: 50,),
+                      child: CustomColumn(
+                        text: Text(
+                          "Location Service",
+                          style: kHomeTextStyle,
+                        ),
+                        content: buildContentColumn(),
+                        button: buildCustomButton(),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+      )
+    );
+  }
+
+  Column buildContentColumn() {
+    return Column(
+      children: <Widget>[
+        Text("You can share your location using button",
+            style: kHomeContentTextStyle),
+        Text("below. But you mustn't forget enable ",
+            style: kHomeContentTextStyle),
+        Text("your location on your phone", style: kHomeContentTextStyle),
+      ],
+    );
+  }
+
+  CustomButton buildCustomButton() {
+    return CustomButton(
+        width: 250.0,
+        buttonText: Text("FIND MY LOCATION", style: kCustomButtonTextStyle),
+        onPressed: () => _getLocation(),
+        buttonColor: Color(0xFFFF7A53));
+  }
+}
+
+/*
+  _locationUserViewModel.state == ViewState.Idle
+          ? Stack(
+              overflow: Overflow.visible,
+              children: <Widget>[
+                Container(
+                  height: width,
+                  width: width,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Center(
+                      child: Image(
+                          image: AssetImage(
+                            "assets/images/bg.png",
+                          ),
+                          fit: BoxFit.cover),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50.0),
+                        topRight: Radius.circular(50.0)),
+                    child: Container(
+                      width: double.infinity,
+                      height: height * 0.40,
+                      decoration: BoxDecoration(color: Colors.white),
+                      child: CustomColumn(
+                        text: Text(
+                          "Location Service",
+                          style: kHomeTextStyle,
+                        ),
+                        content: buildContentColumn(),
                         button: buildCustomButton(),
                       ),
                     ),
@@ -79,17 +158,6 @@ class _HomePageState extends State<HomePage> {
               ],
             )
           : Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(backgroundColor: Colors.white,),
             ),
-    );
-  }
-
-  CustomButton buildCustomButton() {
-    return CustomButton(
-        buttonText: Text("FIND LOCATION", style: kCustomButtonTextStyle),
-        onPressed: () => _getLocation(),
-        buttonColor: Color(0xFFFF7A53));
-  }
-
-
-}
+ */

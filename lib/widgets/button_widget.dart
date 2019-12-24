@@ -8,12 +8,13 @@ class CustomButton extends StatelessWidget   {
   final Widget buttonIcon;
   final VoidCallback onPressed;
   final double radius;
+  final double width;
 
   const CustomButton(
       {Key key,
       @required this.buttonText,
       this.buttonColor: Colors.black,
-     
+      this.width,
       this.height:45.0,
       this.buttonIcon,
       @required this.onPressed,
@@ -27,6 +28,7 @@ class CustomButton extends StatelessWidget   {
       
       child: SizedBox(
         height:height ,
+        width: width,
               child: RaisedButton(
           onPressed: onPressed,
           child: buttonText,

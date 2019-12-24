@@ -10,7 +10,8 @@ class LocationService implements LocationBase {
   Future<Location> getLocation() async{
     
     Position _position = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation).timeout(Duration(seconds: 10));
+        
     return _locationFromPosition(_position);
     
     
@@ -27,7 +28,7 @@ class LocationService implements LocationBase {
 
   Future<ExactAddress> getAdress(double latitude, double longitude) async{
     List<Placemark> _placeMark= await Geolocator().placemarkFromCoordinates(latitude, longitude);
-    String _adress=_placeMark[0].name.toString() + "," + _placeMark[0].locality.toString()+","+_placeMark[0].administrativeArea;
+    String _adress=_placeMark[0].name.toString() + "," + _placeMark[0].locality.toString()+","+_placeMark[0].administrativeArea+","+_placeMark[0].subAdministrativeArea+","+_placeMark[0].subLocality;
     return  _adressFromLocation(_adress);
   }
 

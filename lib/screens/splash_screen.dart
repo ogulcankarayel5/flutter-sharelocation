@@ -1,33 +1,39 @@
+import 'package:animated_splash/animated_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:mobilsharelocation/screens/home_page.dart';
 import 'package:mobilsharelocation/utilities/constant.dart';
-import 'package:splashscreen/splashscreen.dart';
 
-class Splash extends StatefulWidget {
-  @override
-  _SplashState createState() => _SplashState();
-}
 
-class _SplashState extends State<Splash> {
+class Splash extends StatelessWidget {
+  static final String id ='splash_screen';
   @override
   Widget build(BuildContext context) {
-    final height=MediaQuery.of(context).size.height;
+    return AnimatedSplash(
+     imagePath:"assets/images/location-clipart-location-pointer-5-removebg-preview.png",
+     home: HomePage(),
+     duration: 3000,
+     type: AnimatedSplashType.StaticDuration,
+     
+   );
+  }
+}
+
+/*
+ final height=MediaQuery.of(context).size.height;
     return SplashScreen(
      
       seconds: 2,
       navigateAfterSeconds: HomePage(),
       title: Text(
-        'Share Your Location',
+        'Welcome To Sharloc',
         style: kTitleTextStyle,
       ),
       image: Image.asset(
           "assets/images/location-clipart-location-pointer-5-removebg-preview.png"),
       backgroundColor: Colors.white,
     
-      photoSize: height * 0.10,
-      onClick: () => print("Flutter Egypt"),
+      photoSize: height * 0.15,
+      
      
     );
-    
-  }
-}
+ */

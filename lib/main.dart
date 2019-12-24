@@ -3,13 +3,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:mobilsharelocation/locator.dart';
+import 'package:mobilsharelocation/screens/google_map.dart';
 import 'package:mobilsharelocation/screens/home_page.dart';
 import 'package:mobilsharelocation/screens/splash_screen.dart';
 
 import 'package:mobilsharelocation/utilities/constant.dart';
 import 'package:mobilsharelocation/viewmodels/location_viewmodel.dart';
 import 'package:provider/provider.dart';
-import 'package:splashscreen/splashscreen.dart';
+
 
 void main() {
   setupLocator();
@@ -23,25 +24,19 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => LocationViewModel(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           scaffoldBackgroundColor: Color(0xff66D7CD),
           primarySwatch: Colors.blue,
         ),
-        home: Splash(),
-        // home: AdvancedSplashScreen(
-        //   appTitle: "Welcome",
-        //   appTitleStyle: kSplashTitleStyle,
-        //   child: HomePage(),
-        //   seconds: 3,
-        //   colorList: [
-        //     Color(0xff2B2C50),
-        //     Color(0xff2B2C50),
-        //     Color(0xff2B2C50),
-        //   ],
-        //   appIcon:
-        //       "assets/images/location-clipart-location-pointer-5-removebg-preview.png",
-        // ),
+        initialRoute: Splash.id,
+        routes:{
+          HomePage.id:(context) => HomePage(),
+          Splash.id:(context) => Splash(),
+          GoogleMapWidget.id:(context)=>GoogleMapWidget(),
+        },
+       
       ),
     );
   }
