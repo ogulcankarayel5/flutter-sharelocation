@@ -28,6 +28,9 @@ dependencies:
   google_maps_flutter: ^0.5.21+15
   share: ^0.6.3+5
   geocoder: ^0.2.1
+  loading_animations: "^2.1.0"
+  flutter_staggered_animations: ^0.1.2
+
   
   
   
