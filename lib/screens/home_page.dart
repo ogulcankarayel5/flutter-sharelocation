@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
               child: Center(
                 child: AnimationConfiguration.synchronized(
                   child: SlideAnimation(
-                    delay: Duration(seconds: 1),
+                    delay: Duration(seconds: 3),
                     verticalOffset: 75.0,
                     child: Image(
                         image: AssetImage(

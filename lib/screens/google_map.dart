@@ -29,7 +29,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
           child: Scaffold(
         body: GoogleMap(
                 markers: _locationViewModel.createMarker(),
-                mapType: MapType.hybrid,
+                mapType: MapType.normal,
                 myLocationEnabled: true,
                 initialCameraPosition: CameraPosition(
                   target: LatLng(
@@ -61,6 +61,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
       await _locationViewModel.shareLocation(latitude, longitude);
     } catch (e) {
       _showAlert(title: "Başarısız", content: e.toString());
+      Navigator.pop(context);
     }
   }
 
