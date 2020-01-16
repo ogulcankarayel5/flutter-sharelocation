@@ -40,7 +40,7 @@ class PlatformAlertWidget extends PlatformWidget {
   Widget buildIOSWidget(BuildContext context) {
     return CupertinoAlertDialog(
       title: Text(title),
-      content: Text(content),
+      content: Text(content,style: kPlatformAlerWidgetTitleStyle,),
       actions: _dialogButtons(context),
     );
   }
@@ -49,7 +49,7 @@ class PlatformAlertWidget extends PlatformWidget {
     final allButtons = <Widget>[];
     if (Platform.isIOS) {
       allButtons.add(CupertinoDialogAction(
-        child: Text(mainButtonText),
+        child: Text("Tamam",style: kPlatformAlerWidgetTextStyle,),
         onPressed: () {
           Navigator.of(context).pop(true);
         },
